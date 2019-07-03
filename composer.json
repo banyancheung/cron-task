@@ -24,12 +24,6 @@
       "SwoftTest\\CronTask\\": "test/case"
     }
   },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packagist.laravel-china.org"
-    }
-  ],
   "require-dev": {
   },
   "scripts": {

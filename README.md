@@ -1,13 +1,13 @@
-# Swoft View
+# Swoft CronTask
 
-Swoft framework view Component 
+Swoft framework CronTask Component 
 
 ## Install
 
 - composer command
 
 ```bash
-composer require swoft/view
+composer require banyancheung/cron-task
 ```
 
 ## Document
