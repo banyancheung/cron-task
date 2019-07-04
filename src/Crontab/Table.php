@@ -73,7 +73,7 @@ class Table implements TableInterface
      *
      * @return Table
      */
-    public function setName(string $name): Table
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -97,7 +97,7 @@ class Table implements TableInterface
      *
      * @return Table
      */
-    public function setSize(int $size): Table
+    public function setSize(int $size): self
     {
         $this->size = $size;
 
@@ -121,7 +121,7 @@ class Table implements TableInterface
      *
      * @return Table;
      */
-    public function setColumns(array $columns): Table
+    public function setColumns(array $columns): self
     {
         $this->columns = $columns;
 

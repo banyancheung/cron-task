@@ -33,7 +33,7 @@ class ScheduledParser extends Parser
         }
 
         TaskRegister::bindTask(
-            $this->className, $this->methodName, $annotation->getCron(), $annotation->getDescription()
+            $this->className, $this->methodName, $annotation->getCron(), $annotation->getTask()
         );
 
         return [];

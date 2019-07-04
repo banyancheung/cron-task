@@ -14,7 +14,7 @@ use Doctrine\Common\Annotations\Annotation\Target;
  * @Target("METHOD")
  * @Attributes(
  *     @Attribute("cron", type="string"),
- *     @Attribute("description", type="string")
+ *     @Attribute("task", type="string")
  * )
  */
 class Scheduled
@@ -28,8 +28,9 @@ class Scheduled
 
     /**
      * @var string
+     * @Required()
      */
-    private $description = '';
+    private $task;
 
     /**
      * Bean constructor.
@@ -46,8 +47,8 @@ class Scheduled
             $this->cron = $values['cron'];
         }
 
-        if (isset($values['description'])) {
-            $this->description = $values['description'];
+        if (isset($values['task'])) {
+            $this->task = $values['task'];
         }
     }
 
@@ -62,9 +63,9 @@ class Scheduled
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getTask(): string
     {
-        return $this->description;
+        return $this->task;
     }
 
 }

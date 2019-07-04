@@ -2,7 +2,10 @@
 
 namespace Swoft\CronTask\Process;
 
+use Swoft\Co;
+use Swoft\CronTask\Crontab\Crontab;
 use Swoft\Task\Task;
+use Swoft\Bean\BeanFactory;
 use Swoole\Process;
 use Swoft\Bean\Annotation\Mapping\Bean;
 
@@ -22,19 +25,16 @@ class CronExecProcess
 
     public function handle(Process $process)
     {
-        $server = \server();
-        $pname = $server->getPid();
-        echo 'pname:' . $pname;
-        $process->name(sprintf('%s cronexec process', $pname));
+        $server = \server()->getSwooleServer();
+        $process->name(' cronexec process');
         /** @var \Swoft\CronTask\Crontab\Crontab $cron */
-        $cron = \bean('crontab');
-        // Swoole/HttpServer
-        $server->tick(0.5 * 1000, function () use ($cron) {
+        $cron = Crontab::getInstance();
+        $server->tick(500, function () use ($cron) {
             $tasks = $cron->getExecTasks();
             if (!empty($tasks)) {
                 foreach ($tasks as $task) {
                     // Diliver task
-                    Task::async($task['taskClass'], $task['taskMethod']);
+                    Task::async($task['task'], $task['taskMethod']);
                     $cron->finishTask($task['key']);
                 }
             }

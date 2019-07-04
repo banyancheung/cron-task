@@ -2,7 +2,10 @@
 
 namespace Swoft\CronTask\Process;
 
+use Swoft\Co;
+use Swoft\CronTask\Crontab\Crontab;
 use Swoole\Process;
+use Swoft\Bean\BeanFactory;
 use Swoft\Bean\Annotation\Mapping\Bean;
 
 /**
@@ -21,12 +24,10 @@ class CronTimerProcess
     public function handle(Process $process)
     {
         // SwooleServer
-        $server = \server();
-        $pname = \server()->getPid();
-        echo 'pname:' . $pname;
-        $process->name(sprintf('%s crontimer process', $pname));
+        $server = \server()->getSwooleServer();
+        $process->name('crontimer process');
         /* @var \Swoft\CronTask\Crontab\Crontab $cron */
-        $cron = \bean('crontab');
+        $cron = Crontab::getInstance();
         $time = (60 - date('s')) * 1000;
         $server->after($time, function () use ($server, $cron) {
             // Every minute check all tasks, and prepare the tasks that next execution point needs

@@ -3,6 +3,7 @@
 namespace Swoft\CronTask\Listener;
 
 use Swoft\Bean\BeanFactory;
+use Swoft\CronTask\Crontab\Crontab;
 use Swoft\CronTask\Crontab\TableCrontab;
 use Swoft\CronTask\Process\CronExecProcess;
 use Swoft\CronTask\Process\CronTimerProcess;
@@ -29,12 +30,15 @@ class AttachCronProcessHandler implements EventHandlerInterface
      */
     public function handle(EventInterface $event): void
     {
+        echo "init event..."."\n";
         $setting = \config('cron');
         // Init crontab share memory table
-        if (isset($settings['cronable']) && (int)$settings['cronable'] === 1) {
+        if (isset($setting['cronable']) && (int)$setting['cronable'] === 1) {
             $this->initCrontabMemoryTable();
+            Crontab::init();
             $this->initProcessByEvent($event);
         }
+        echo "init event succeed"."\n";
     }
 
     /**
@@ -42,11 +46,13 @@ class AttachCronProcessHandler implements EventHandlerInterface
      */
     private function initCrontabMemoryTable(): void
     {
+        echo "init memory table..."."\n";
         /** @var array[] $settings */
         $setting = \config('cron');
-        $taskCount = isset($settings['task_count']) && $settings['task_count'] > 0 ? $settings['task_count'] : null;
-        $taskQueue = isset($settings['task_queue']) && $settings['task_queue'] > 0 ? $settings['task_queue'] : null;
+        $taskCount = isset($setting['task_count']) && $setting['task_count'] > 0 ? $setting['task_count'] : null;
+        $taskQueue = isset($setting['task_queue']) && $setting['task_queue'] > 0 ? $setting['task_queue'] : null;
         TableCrontab::init($taskCount, $taskQueue);
+        echo "init memory table succeed"."\n";
     }
 
     /**
@@ -55,11 +61,13 @@ class AttachCronProcessHandler implements EventHandlerInterface
      */
     private function initProcessByEvent(EventInterface $event): void
     {
-        $swooleServer = $event->target->getSwooleServer();
-        $execProcess = \bean(CronExecProcess::class);
-        $timerProcess = \bean(CronTimerProcess::class);
+        echo "init process..."."\n";
+        $swooleServer = $event->getTarget()->getSwooleServer();
+        $execProcess = \bean(CronExecProcess::class)->create();
+        $timerProcess = \bean(CronTimerProcess::class)->create();
         $swooleServer->addProcess($execProcess);
         $swooleServer->addProcess($timerProcess);
+        echo "init process done."."\n";
     }
 
 }

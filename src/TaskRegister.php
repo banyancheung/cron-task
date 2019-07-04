@@ -19,14 +19,14 @@ class TaskRegister
      * @param string $cron
      * @param string $description
      */
-    public static function bindTask(string $class, string $method, string $cron, string $description): void
+    public static function bindTask(string $class, string $method, string $cron, string $task): void
     {
         // Storage
         self::$tasks[] = [
             'cron' => $cron,
             'method' => $method,
             'className' => $class,
-            'description' => $description
+            'task' => $task
         ];
     }
 

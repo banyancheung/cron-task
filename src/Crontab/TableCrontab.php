@@ -39,7 +39,7 @@ class TableCrontab
      */
     private $originStruct = [
         'rule'       => [\Swoole\Table::TYPE_STRING, 100],
-        'taskClass'  => [\Swoole\Table::TYPE_STRING, 255],
+        'task' => [\Swoole\Table::TYPE_STRING, 255],
         'taskMethod' => [\Swoole\Table::TYPE_STRING, 255],
         'add_time'   => [\Swoole\Table::TYPE_STRING, 11],
     ];
@@ -48,7 +48,7 @@ class TableCrontab
      * @var array $runTimeStruct 运行表结构
      */
     private $runTimeStruct = [
-        'taskClass'  => [\Swoole\Table::TYPE_STRING, 255],
+        'task' => [\Swoole\Table::TYPE_STRING, 255],
         'taskMethod' => [\Swoole\Table::TYPE_STRING, 255],
         'minute'      => [\Swoole\Table::TYPE_STRING, 20],
         'sec'        => [\Swoole\Table::TYPE_STRING, 20],
@@ -63,6 +63,7 @@ class TableCrontab
      */
     public static function init(int $taskCount = null, int $taskQueue = null)
     {
+        echo 'init tableCrontab' . "\n";
         self::$taskCount = $taskCount == null ? self::$taskCount : $taskCount;
         self::$taskQueue = $taskQueue == null ? self::$taskQueue : $taskQueue;
         self::getInstance();
