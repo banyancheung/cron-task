@@ -13,7 +13,7 @@ use Swoft\Event\EventInterface;
 use Swoft\Server\ServerEvent;
 
 /**
- * Class AppInitCompleteListener
+ * Class AttachCronProcessHandler
  *
  * @since 2.0
  *

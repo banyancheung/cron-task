@@ -34,6 +34,10 @@ composer require banyancheung/cron-task
 
 注意：Scheduled里的task属性是必须的，用于定位是哪个Task，也许会有更好的方法。:)
 
+3.应用配置里增加 cron 配置项
+
+![](https://img.yunjes.com/doc/cron-task/3.png)
+
 ## LICENSE
 
 The Component is open-sourced software licensed under the [Apache license](LICENSE).

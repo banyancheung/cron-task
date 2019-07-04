@@ -10,7 +10,7 @@ use Swoft\Event\EventInterface;
 use Swoft\Task\Task;
 
 /**
- * The pipe message listener
+ * PipeMessageHandler
  *
  * @Listener(event=SwooleEvent::PIPE_MESSAGE)
  */

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Swoft\CronTask\Crontab;
 
@@ -38,10 +38,10 @@ class TableCrontab
      * @var array $originStruct 任务表结构
      */
     private $originStruct = [
-        'rule'       => [\Swoole\Table::TYPE_STRING, 100],
+        'rule' => [\Swoole\Table::TYPE_STRING, 100],
         'task' => [\Swoole\Table::TYPE_STRING, 255],
         'taskMethod' => [\Swoole\Table::TYPE_STRING, 255],
-        'add_time'   => [\Swoole\Table::TYPE_STRING, 11],
+        'add_time' => [\Swoole\Table::TYPE_STRING, 11],
     ];
 
     /**
@@ -50,9 +50,9 @@ class TableCrontab
     private $runTimeStruct = [
         'task' => [\Swoole\Table::TYPE_STRING, 255],
         'taskMethod' => [\Swoole\Table::TYPE_STRING, 255],
-        'minute'      => [\Swoole\Table::TYPE_STRING, 20],
-        'sec'        => [\Swoole\Table::TYPE_STRING, 20],
-        'runStatus'  => [\Swoole\Table::TYPE_INT, 4],
+        'minute' => [\Swoole\Table::TYPE_STRING, 20],
+        'sec' => [\Swoole\Table::TYPE_STRING, 20],
+        'runStatus' => [\Swoole\Table::TYPE_INT, 4],
     ];
 
     /**
