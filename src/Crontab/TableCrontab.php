@@ -63,7 +63,6 @@ class TableCrontab
      */
     public static function init(int $taskCount = null, int $taskQueue = null)
     {
-        echo 'init tableCrontab' . "\n";
         self::$taskCount = $taskCount == null ? self::$taskCount : $taskCount;
         self::$taskQueue = $taskQueue == null ? self::$taskQueue : $taskQueue;
         self::getInstance();

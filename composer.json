@@ -14,7 +14,7 @@
       "email": "i@zhangrong.cc"
     }
   ],
-  "description": "micro-service framework base on swoole",
+  "description": "crontab task component base on swoft",
   "license": "Apache-2.0",
   "require": {
     "swoft/framework": "~2.0.0",
@@ -24,16 +24,6 @@
     "psr-4": {
       "Swoft\\CronTask\\": "src/"
     }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "SwoftTest\\CronTask\\": "test/case"
-    }
-  },
-  "require-dev": {
-  },
-  "scripts": {
-    "test": "./vendor/bin/phpunit -c phpunit.xml"
   },
   "repositories": {
     "packagist": {

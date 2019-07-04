@@ -4,6 +4,7 @@ namespace Swoft\CronTask\Crontab;
 
 use Swoft\App;
 use Swoft\Bean\Annotation\Mapping\Bean;
+use Swoft\CronTask\PipeMessage;
 use Swoft\CronTask\TaskRegister;
 use Swoole\Table as SwooleTable;
 
@@ -180,7 +181,7 @@ class Crontab
      * 获取key值
      *
      * @param string $rule 规则
-     * @param string $taskClass 任务类
+     * @param string $task 任务名
      * @param string $taskMethod 任务方法
      * @param string $min 分
      * @param string $sec 时间戳
@@ -221,7 +222,6 @@ class Crontab
     private function initRunTimeTableData(array $task, array $parseResult): bool
     {
         $runTimeTable = $this->getRunTimeTable();
-
         $min = date('YmdHi');
         $sec = strtotime(date('Y-m-d H:i'));
 
@@ -307,6 +307,20 @@ class Crontab
     public function startTask($key)
     {
         return $this->getRunTimeTable()->set($key, ['runStatus' => self::START]);
+    }
+
+    /**
+     * @param string $task
+     * @param string $method
+     */
+    public function deliverTask(string $task, string $method): void
+    {
+        /* @var PipeMessageInterface $pipeMessage */
+        $message = PipeMessage::pack(PipeMessage::MESSAGE_TYPE_TASK, [
+            'name' => $task,
+            'method' => $method
+        ]);
+        \server()->getSwooleServer()->sendMessage($message, 0);
     }
 
     /**

@@ -34,7 +34,7 @@ class CronExecProcess
             if (!empty($tasks)) {
                 foreach ($tasks as $task) {
                     // Diliver task
-                    Task::async($task['task'], $task['taskMethod']);
+                    $cron->deliverTask($task['task'], $task['taskMethod']);
                     $cron->finishTask($task['key']);
                 }
             }

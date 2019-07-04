@@ -30,7 +30,6 @@ class AttachCronProcessHandler implements EventHandlerInterface
      */
     public function handle(EventInterface $event): void
     {
-        echo "init event..."."\n";
         $setting = \config('cron');
         // Init crontab share memory table
         if (isset($setting['cronable']) && (int)$setting['cronable'] === 1) {
@@ -38,7 +37,6 @@ class AttachCronProcessHandler implements EventHandlerInterface
             Crontab::init();
             $this->initProcessByEvent($event);
         }
-        echo "init event succeed"."\n";
     }
 
     /**
@@ -46,13 +44,11 @@ class AttachCronProcessHandler implements EventHandlerInterface
      */
     private function initCrontabMemoryTable(): void
     {
-        echo "init memory table..."."\n";
         /** @var array[] $settings */
         $setting = \config('cron');
         $taskCount = isset($setting['task_count']) && $setting['task_count'] > 0 ? $setting['task_count'] : null;
         $taskQueue = isset($setting['task_queue']) && $setting['task_queue'] > 0 ? $setting['task_queue'] : null;
         TableCrontab::init($taskCount, $taskQueue);
-        echo "init memory table succeed"."\n";
     }
 
     /**
@@ -61,13 +57,11 @@ class AttachCronProcessHandler implements EventHandlerInterface
      */
     private function initProcessByEvent(EventInterface $event): void
     {
-        echo "init process..."."\n";
         $swooleServer = $event->getTarget()->getSwooleServer();
         $execProcess = \bean(CronExecProcess::class)->create();
         $timerProcess = \bean(CronTimerProcess::class)->create();
         $swooleServer->addProcess($execProcess);
         $swooleServer->addProcess($timerProcess);
-        echo "init process done."."\n";
     }
 
 }
